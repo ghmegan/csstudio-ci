@@ -1,0 +1,92 @@
+<!-- Maven settings.xml
+
+     Maven settings are typically copied to ~/.m2/settings.xml
+
+    This file can be used with "mvn -s /path/to/settings.xml"
+    and relies on SRC_DIR environment variable to
+    locate the composite repo
+  -->
+<settings>
+
+  <mirrors>
+    <mirror>
+      <!--This sends everything else to /public -->
+      <id>nexus</id>
+      <mirrorOf>*</mirrorOf>
+      <url>http://localhost:8081/nexus/content/groups/public</url>
+    </mirror>
+  </mirrors>
+
+  <profiles>
+    <profile>
+      <id>my-css-settings</id>
+
+      <!--Enable snapshots for the built in central repo to direct -->
+      <!--all requests to nexus via the mirror -->
+      <!-- URLS are bogus. They will be overridden by the mirror url above -->
+      <repositories>
+        <repository>
+          <id>central</id>
+          <url>http://central</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+      </repositories>
+     <pluginRepositories>
+        <pluginRepository>
+          <id>central</id>
+          <url>http://central</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+
+
+      <properties>
+        <!-- Path to your composite repo -->
+        <csstudio.composite.repo>${env.SCRIPT_DIR}/css_repo</csstudio.composite.repo>
+
+       <!-- Setting this property DISABLES
+            downloads from
+            download.controlsystemstudio.org,
+            so you use only your composite repo -->
+        <cs-studio>dummy_value</cs-studio>
+
+        <tycho.localArtifacts>ignore</tycho.localArtifacts>
+
+        <!-- Issue warnings instead of aborting on error -->
+        <baselineMode>warn</baselineMode>
+        <jgit.dirtyWorkingTree>warning</jgit.dirtyWorkingTree>
+
+        <!-- Skip unit tests -->
+        <maven.test.skip>true</maven.test.skip>
+        <skipTests>true</skipTests>
+      </properties>
+    </profile>
+  </profiles>
+
+  <!-- Mirrors to avoid strange timeout problems at SNS:
+       "Connect to repo.maven.apache.org:443 [repo.maven.apache.org/23.235.46.215] failed:
+        Operation timed out"
+  <mirrors>
+    <mirror>
+      <id>maven-central</id>
+      <name>Maven Central</name>
+      <url>https://repo1.maven.org/maven2</url>
+      <mirrorOf>central</mirrorOf>
+    </mirror>
+
+    <mirror>
+      <id>google-maven-central</id>
+      <name>Google Maven Central</name>
+      <url>https://maven-central.storage.googleapis.com</url>
+      <mirrorOf>central</mirrorOf>
+    </mirror>
+  </mirrors>
+    -->
+
+  <!-- Enable the above settings -->
+  <activeProfiles>
+    <activeProfile>my-css-settings</activeProfile>
+  </activeProfiles>
+</settings>
