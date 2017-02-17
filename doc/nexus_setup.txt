@@ -1,0 +1,26 @@
+
+Nexus 2 comes with built in mirroring for maven central. The only setup there is to go to the repository config for the proxy repos and enable the "Download remote indexes" option.
+
+We need to add the various other repositories used in the build.
+
+These are the repos that had to be added. They are all added as proxy Maven2 repos. Then they get added to the Public Repostories group.
+
+ID: org-epics
+Name: EPICS Maven Repo
+Remote Storage Location: http://epics.sourceforge.net/maven2/
+
+ID: terracotta
+Name: Terracotta Projects
+Remote Storage Location: http://repo.terracotta.org/maven2/
+
+----- P2 repos
+
+The P2 support needs to be added as plugins. Two plugins were used:
+Nexus P2 Bridge Plugin and the Nexus P2 Repository Plugin
+
+- Search on maven central for these
+- download bundle.zip of the version matching your nexus install
+- unzip the bundle.zip into sonatype-work/nexus/plugin-repository
+- restart the repo manager
+
+Increase wrapper.java.maxmemory to a minimum of 2048. This configuration value can be found in $NEXUS_HOME/bin/jsw/conf/wrapper.conf.

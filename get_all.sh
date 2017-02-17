@@ -18,7 +18,7 @@ do
     if [ -d $D ]
     then
 	echo "==== Updating $D ===="
-	(cd $D; git pull; git branch)
+	(cd $D; git clean -Xdf; git pull; git branch)
     else
 	echo "==== Fetching $D ===="
 	git clone $GH/$i

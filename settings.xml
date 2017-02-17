@@ -21,6 +21,22 @@
     <profile>
       <id>my-css-settings</id>
 
+      <!-- P2 REPOSITORIES -->
+      <!-- This setting overrides the repository settings in css-thirdparty -->
+      <repositories>
+	<repository>
+	  <id>eclipse</id>
+	  <url>http://localhost:8081/nexus/content/repositories/mars-releases/</url>
+	  <layout>p2</layout>
+	</repository>
+	<repository>
+	  <id>eclipse-updates</id>
+	  <url>http://localhost:8081/nexus/content/repositories/eclipse-updates-4.5/</url>
+	  <layout>p2</layout>
+	</repository>
+      </repositories>
+
+
       <!--Enable snapshots for the built in central repo to direct -->
       <!--all requests to nexus via the mirror -->
       <!-- URLS are bogus. They will be overridden by the mirror url above -->
@@ -46,6 +62,14 @@
         <!-- Path to your composite repo -->
         <csstudio.composite.repo>${env.SCRIPT_DIR}/css_repo</csstudio.composite.repo>
 
+	<!-- Override build properties that set the p2 sites -->
+        <eclipse-site>http://localhost:8081/nexus/content/repositories/mars-releases</eclipse-site>
+        <eclipse-update-site>http://localhost:8081/nexus/content/repositories/eclipse-updates-4.5</eclipse-update-site>
+        <rap-site>http://localhost:8081/nexus/content/repositories/rt-rap-3.0</rap-site>
+        <rap-gef-site>http://localhost:8081/nexus/content/repositories/rap-gef-nightly</rap-gef-site>
+        <swtbot-site>http://localhost:8081/nexus/content/repositories/swtbot-snapshots</swtbot-site>
+	<pydev-site>http://localhost:8081/nexus/content/repositories/pydev-updates</pydev-site>
+  
        <!-- Setting this property DISABLES
             downloads from
             download.controlsystemstudio.org,
