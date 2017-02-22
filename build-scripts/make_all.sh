@@ -30,7 +30,9 @@ cd $TOP_DIR
 
 #rm -rf *.log
 
-OPTS="-s $MSET clean verify"
+export MAVEN_OPTS="-Xmx2048m"
+BASE_OPTS="-s $MSET"
+OPTS="${BASE_OPTS} clean verify"
 
 #build_in diirt 0
 
@@ -40,11 +42,11 @@ OPTS="-s $MSET clean verify"
 
 #build_in cs-studio/core 3 core
 
-build_in cs-studio/applications 4 applications
+#build_in cs-studio/applications 4 applications
 
-CSS_REPO=file:$TOP/org.csstudio.sns/css_repo
-OPTS="-s $MSET -Dcss-repo=$CSS_REPO clean verify"
+CSS_REPO=file:$TOP_DIR/csstudio-ci/css_repo
+OPTS="${BASE_OPTS} -Dcss-repo=$CSS_REPO clean verify"
 #build_in org.csstudio.display.builder 5 display_builder
 
-OPTS="-s $MSET clean verify"
-#build_in org.csstudio.sns 6 sns
+OPTS="${BASE_OPTS} clean verify"
+build_in org.csstudio.sns 6 sns
