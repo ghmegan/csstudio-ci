@@ -1,0 +1,14 @@
++ /sonatype-work/nexus/conf
++ /sonatype-work/nexus/db
++ /sonatype-work/nexus/health-check
++ /sonatype-work/nexus/logs
++ /sonatype-work/nexus/nuget
++ /sonatype-work/nexus/plugin-repository
++ /sonatype-work/nexus/storage/
++ /sonatype-work/nexus/storage/releases
++ /sonatype-work/nexus/storage/snapshots
++ /sonatype-work/nexus/storage/thirdparty
++ /sonatype-work/nexus/timeline/
+- /sonatype-work/nexus/timeline/index
+- /sonatype-work/nexus/storage/*
+- /sonatype-work/nexus/*
