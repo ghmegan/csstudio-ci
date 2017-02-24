@@ -1,26 +1,143 @@
+------------------------------------------
+Install Oracle Java:
+------------------------------------------
 
-Nexus 2 comes with built in mirroring for maven central. The only setup there is to go to the repository config for the proxy repos and enable the "Download remote indexes" option.
+Go to the Oracle web site, agree to copyright, download JDK tar file into /opt
 
-We need to add the various other repositories used in the build.
+$ cd /opt
 
-These are the repos that had to be added. They are all added as proxy Maven2 repos. Then they get added to the Public Repostories group.
+;; Just repeat these two commands to update java
 
-ID: org-epics
-Name: EPICS Maven Repo
-Remote Storage Location: http://epics.sourceforge.net/maven2/
+# tar xfvz jdk-8u121-linux-x64.tar.gz 
+# ln -s jdk1.8.0_121/ oracle-java
 
-ID: terracotta
-Name: Terracotta Projects
-Remote Storage Location: http://repo.terracotta.org/maven2/
+;; Add the oracle java options
 
------ P2 repos
+$ alternatives --install /usr/bin/java java /opt/oracle-java/bin/java 1
+$ alternatives --install /usr/bin/jar jar /opt/oracle-java/bin/jar 1
+$ alternatives --install /usr/bin/javac javac /opt/oracle-java/bin/javac 1
 
-The P2 support needs to be added as plugins. Two plugins were used:
-Nexus P2 Bridge Plugin and the Nexus P2 Repository Plugin
+;; Select the oracle java options in config
 
-- Search on maven central for these
-- download bundle.zip of the version matching your nexus install
-- unzip the bundle.zip into sonatype-work/nexus/plugin-repository
-- restart the repo manager
+$ alternatives --config java
+$ alternatives --config jar
+$ alternatives --config javac
 
-Increase wrapper.java.maxmemory to a minimum of 2048. This configuration value can be found in $NEXUS_HOME/bin/jsw/conf/wrapper.conf.
+;; Add Some system wide environment variables
+
+$ cd /etc/profile.d
+
+$ vi java.sh
+
+;; Add these lines:
+export JAVA_HOME=/opt/oracle-java
+export JRE_HOME=/opt/oracle-java/jre
+export PATH=$PATH:/opt/oracle-java/bin:/opt/oracle-java/jre/bin
+
+------------------------------------------
+Install Nexus 2
+------------------------------------------
+
+;; Download and unzip the oss version into /opt
+;; Change ownership to whatever user nexus will run under
+
+# cd /opt
+# wget https://sonatype-download.global.ssl.fastly.net/nexus/oss/nexus-2.14.2-01-bundle.tar.gz
+# tar xfvz nexus-2.14.2-01-bundle.tar.gz
+# chown -R elc:users sonatype-work
+# chown -R elc:users nexus-2.14.2-01
+
+;; Create softlink to current version
+
+# ln -s nexus-2.14.2-01 nexus
+# chown -R elc:user nexus
+
+;; Add a variable to the environment with a profile.d script
+
+$ cat /etc/profile.d/nexus.sh 
+export NEXUS_HOME=/opt/nexus
+
+;; Start a test instance of nexus
+
+$ /opt/nexus/bin/nexus console
+
+;; Do some basic config
+
+$ firefox http://localhost:8081/nexus
+
+- Change the admin password.
+- Go to the proxy repositories and use configuration to change 'Download Remote Indexes' to true
+- Go to Security->Users and change the deployment user password from the default
+
+;; Increase wrapper.java.maxmemory to a minimum of 2048. This configuration value can be found in $NEXUS_HOME/bin/jsw/conf/wrapper.conf.
+
+------------------------------------------
+Setup Nexus 2 service (systemd)
+------------------------------------------
+
+$ cd /opt/nexus/bin
+$ cp nexus nexus.local
+$ emacs nexus.local
+
+Change NEXUS_HOME to absolute path: /opt/nexus
+Set RUN_AS_USER to whatever user owns the nexus directories
+
+# vim /etc/systemd/system/nexus2.service
+
+[Unit]
+Description=Nexus 2 Repository Manager
+After=network.target
+
+[Service]
+Type=forking
+User=elc
+ExecStart=/opt/nexus/bin/nexus.local start
+ExecReload=/opt/nexus/bin/nexus.local restart
+ExecStop=/opt/nexus/bin/nexus.local stop
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+
+# systemctl start nexus2
+# systemctl status nexus2
+# systemctl enable nexus2
+
+;; Open port 8081 in the firewall. 
+;; For regular RHEL 7 system, this is easy using firewall-cmd
+;; For the CI VM at ORNL, there is some alternative method... Email Linux support for help
+
+------------------------------------------
+OPTIONAL: Restore Nexus 2 config from backup
+------------------------------------------
+
+IMPORTANT: Doing this backup WILL REPLACE ADMIN PASSWORD to whatever it was when the backup was made.
+
+The backup_nexus.sh script makes a tar file of the sonatype-work directory
+Use this to replace the existing one, and restart nexus
+
+# systemctl stop nexus2
+# cd /opt
+# mv sonatype-work old-work
+# tar xfvz /SNS/users/elc/nexus-backup-2017-02-22.tar.gz
+# mv nexus-backup/sonatype-work/ .
+# rmdir nexus-backup/
+# chown -R elc:users sonatype-work/
+# systemctl start nexus2
+
+------------------------------------------
+OPTIONAL: Update/Install P2 plugins
+------------------------------------------
+
+These plugins will be automatically installed if you restore from backup
+They live in the sonatype-work/nexus/plugin-repository directory
+
+Version numbers correlate to nexus 2 version numbers. Versions less than
+nexus should work, up to a point, versions greater than nexus are no good.
+
+To update these to newer versions, download the bundles from maven central
+and unzip them into sonatype-work/nexus/plugin-repository
+
+See the nexus-scripts/setup_plugins.sh for an example set of commands.
+To use this script, update the urls and directory names to whatever version
+you are needing to download
