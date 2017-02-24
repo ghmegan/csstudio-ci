@@ -1,0 +1,58 @@
+------------------------------------------
+Install Oracle Java:
+------------------------------------------
+
+Go to the Oracle web site, agree to copyright, download JDK tar file into /opt
+
+$ cd /opt
+
+;; Just repeat these two commands to update java
+
+# tar xfvz jdk-8u121-linux-x64.tar.gz 
+# ln -s jdk1.8.0_121/ oracle-java
+
+;; Add the oracle java options
+
+$ alternatives --install /usr/bin/java java /opt/oracle-java/bin/java 1
+$ alternatives --install /usr/bin/jar jar /opt/oracle-java/bin/jar 1
+$ alternatives --install /usr/bin/javac javac /opt/oracle-java/bin/javac 1
+
+;; Select the oracle java options in config
+
+$ alternatives --config java
+$ alternatives --config jar
+$ alternatives --config javac
+
+;; Add Some system wide environment variables
+
+$ cd /etc/profile.d
+
+$ vi java.sh
+
+;; Add these lines:
+export JAVA_HOME=/opt/oracle-java
+export JRE_HOME=/opt/oracle-java/jre
+export PATH=$PATH:/opt/oracle-java/bin:/opt/oracle-java/jre/bin
+
+
+------------------------------------------
+Install Maven
+------------------------------------------
+
+;; Find a link to a recent version of maven and download
+
+# cd /opt
+
+# wget http://apache.mirrors.ionfish.org/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+
+# tar xfvz apache-maven-3.3.9-bin.tar.gz 
+
+# ln -s apache-maven-3.3.9 apache-maven
+
+;; Setup the environment
+
+# cat /etc/profile.d/maven.sh 
+
+export M2_HOME=/opt/apache-maven
+export M2=$M2_HOME/bin
+export PATH=$M2:$PATH

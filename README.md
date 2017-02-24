@@ -6,6 +6,13 @@ The server hosts a Nexus 2 artifact manager to cache Maven and P2 artifcats used
 
 We also Hudson CI server to generate nightly builds of CSS that we make available on our public facing web server.
 
+## Quickstart to build SNS CSS
+
+```
+# ./build-scripts/get_all.sh
+# ./build-scripts/make_all.sh
+```
+
 ## Doc
 
 Documents the steps taken to setup Nexus 2 and Hudson.
