@@ -13,7 +13,7 @@
       <!--This sends everything else to /public -->
       <id>nexus</id>
       <mirrorOf>*</mirrorOf>
-      <url>http://localhost:8081/nexus/content/groups/public</url>
+      <url>http://ctrl-ci.sns.gov:8081/nexus/content/groups/public</url>
     </mirror>
   </mirrors>
 
@@ -26,12 +26,12 @@
 	<!-- This setting overrides the repository settings in css-thirdparty -->
 	<repository>
 	  <id>eclipse</id>
-	  <url>http://localhost:8081/nexus/content/repositories/mars-releases/</url>
+	  <url>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/mars-releases/</url>
 	  <layout>p2</layout>
 	</repository>
 	<repository>
 	  <id>eclipse-updates</id>
-	  <url>http://localhost:8081/nexus/content/repositories/eclipse-updates-4.5/</url>
+	  <url>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/eclipse-updates-4.5/</url>
 	  <layout>p2</layout>
 	</repository>
 
@@ -59,14 +59,12 @@
         <!-- Path to your composite repo -->
         <csstudio.composite.repo>${env.SCRIPT_DIR}/css_repo</csstudio.composite.repo>
 
-	<!-- Override build properties that set the p2 sites 
-        <eclipse-site>http://localhost:8081/nexus/content/repositories/mars-releases</eclipse-site>
-        <eclipse-update-site>http://localhost:8081/nexus/content/repositories/eclipse-updates-4.5</eclipse-update-site>
-        <rap-site>http://localhost:8081/nexus/content/repositories/rt-rap-3.0</rap-site>
-        <rap-gef-site>http://localhost:8081/nexus/content/repositories/rap-gef-nightly</rap-gef-site>
-        <swtbot-site>http://localhost:8081/nexus/content/repositories/swtbot-snapshots</swtbot-site>
-	<pydev-site>http://localhost:8081/nexus/content/repositories/pydev-updates</pydev-site>
-	-->
+        <eclipse-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/mars-releases</eclipse-site>
+        <eclipse-update-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/eclipse-updates-4.5</eclipse-update-site>
+        <rap-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/rt-rap-3.0</rap-site>
+        <rap-gef-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/rap-gef-nightly</rap-gef-site>
+        <swtbot-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/swtbot-snapshots</swtbot-site>
+	<pydev-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/pydev-updates</pydev-site>
 
 	<!-- override download site for maven-osgi-bundles and cs-studio-thirdparty
 	This really need to be done, but the configs for maven-osgi bundles and thirdparty compose

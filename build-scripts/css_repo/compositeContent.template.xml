@@ -18,11 +18,11 @@
          Locations starting in file:/ refer to the root directory,
          everything else is relative to this xml file
       -->
-    <child location='file://SNS/users/elc/local/src/csstudio-ci/BUILD/diirt/p2/target/repository/'/>
-    <child location='file://SNS/users/elc/local/src/csstudio-ci/BUILD/maven-osgi-bundles/repository/target/repository'/>
-    <child location='file://SNS/users/elc/local/src/csstudio-ci/BUILD/cs-studio-thirdparty/repository/target/repository'/>
-    <child location='file://SNS/users/elc/local/src/csstudio-ci/BUILD/cs-studio/core/p2repo'/>
-    <child location='file://SNS/users/elc/local/src/csstudio-ci/BUILD/cs-studio/applications/p2repo'/>
-    <child location='file://SNS/users/elc/local/src/csstudio-ci/BUILD/org.csstudio.display.builder/repository/target/repository'/>
+    <child location='CSS_BUILD_DIR/diirt/p2/target/repository/'/>
+    <child location='CSS_BUILD_DIR/maven-osgi-bundles/repository/target/repository'/>
+    <child location='CSS_BUILD_DIR/cs-studio-thirdparty/repository/target/repository'/>
+    <child location='CSS_BUILD_DIR/cs-studio/core/p2repo'/>
+    <child location='CSS_BUILD_DIR/cs-studio/applications/p2repo'/>
+    <child location='CSS_BUILD_DIR/org.csstudio.display.builder/repository/target/repository'/>
   </children>
 </repository>

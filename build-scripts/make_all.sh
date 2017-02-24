@@ -26,11 +26,22 @@ function build_in {
     fi
 }
 
-cd $TOP_DIR
+SUBFILE=${SCRIPT_DIR}/css_repo/compositeArtifacts.template.xml
+OUTFILE=${SCRIPT_DIR}/css_repo/compositeArtifacts.xml
+
+cat $SUBFILE | sed -e "s?CSS_BUILD_DIR?file:/${CSS_BUILD_DIR}?" > $OUTFILE
+
+SUBFILE=${SCRIPT_DIR}/css_repo/compositeContent.template.xml
+OUTFILE=${SCRIPT_DIR}/css_repo/compositeContent.xml
+
+cat $SUBFILE | sed -e "s?CSS_BUILD_DIR?file:/${CSS_BUILD_DIR}?" > $OUTFILE
+
+cd $CSS_BUILD_DIR
 
 #rm -rf *.log
 
 export MAVEN_OPTS="-Xmx2048m"
+#BASE_OPTS="-e -X -s $MSET"
 BASE_OPTS="-s $MSET"
 OPTS="${BASE_OPTS} clean verify"
 
@@ -44,7 +55,7 @@ OPTS="${BASE_OPTS} clean verify"
 
 #build_in cs-studio/applications 4 applications
 
-CSS_REPO=file:$TOP_DIR/csstudio-ci/css_repo
+CSS_REPO=file:${SCRIPT_DIR}/css_repo
 OPTS="${BASE_OPTS} -Dcss-repo=$CSS_REPO clean verify"
 #build_in org.csstudio.display.builder 5 display_builder
 

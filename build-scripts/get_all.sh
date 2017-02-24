@@ -10,7 +10,7 @@ ControlSystemStudio/cs-studio \
 kasemir/org.csstudio.display.builder \
 ControlSystemStudio/org.csstudio.sns"
 
-cd $TOP_DIR
+cd $CSS_BUILD_DIR
 
 for i in $REPOS
 do
