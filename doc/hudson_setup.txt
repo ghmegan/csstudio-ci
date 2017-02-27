@@ -1,0 +1,61 @@
+Prerequites: Install java
+
+------------------------------------------
+Install Hudson
+------------------------------------------
+
+Hudson does not appear to have support for installs on Centos7.
+
+So, we are just going to download the war file and make a service
+to start it as a daemon.
+
+;; Download war file
+
+# cd opt
+# mkdir hudson
+# cd hudson
+# wget http://mirror.csclub.uwaterloo.ca/eclipse/hudson/war/hudson-3.3.3.war
+# ln -s hudson-3.3.3.war hudson.war
+
+;; Make home directory belonging to user that will run hudson
+
+# mkdir /opt/hudson-home
+# chown -R elc:users /opt/hudson-home 
+
+;; Test war file
+
+$ HUDSON_HOME=/opt/hudson-home java -jar hudson/hudson.war --httpPort=8082
+$ firefox http://localhost:8082
+
+;; Choose plugins from the initial setup page and install them
+
+;; Go to Manage Hudson -> Configure Security
+;; - enable security (Hudson user database)
+;; - add a user admin
+;; - Choose matrix security: Anon can read overall and job, admin can do everything
+
+------------------------------------------
+Setup Hudson service (systemd)
+------------------------------------------
+
+# vim /etc/systemd/system/hudson.service
+
+[Unit]
+Description=Hudson Continuous Integration
+After=network.target
+
+[Service]
+Type=simple
+User=elc
+Environment=HUDSON_HOME=/opt/hudson-home
+ExecStart=/opt/oracle-java/bin/java -jar /opt/hudson/hudson.war --httpPort=8082
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+
+# systemctl start hudson
+# systemctl status hudson
+# systemctl enable hudson
+
+;; Open port 8082 in the firewall. 
