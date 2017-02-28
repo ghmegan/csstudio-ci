@@ -1,8 +1,6 @@
 #!/bin/bash -x
 
 BUILD_ITEM=$1
-#BASE_OPTS="-e -X -s $MSET"
-BASE_OPTS="-s $MSET"
 
 echo "Doing build for ${BUILD_ITEM} in ${WORKSPACE}"
 
@@ -22,6 +20,9 @@ then
     echo "Missing maven settings"
     exit 1
 fi
+
+#BASE_OPTS="-e -X -s $MSET"
+BASE_OPTS="-s $MSET"
 
 if [ "$BUILD_ITEM" == "org.csstudio.display.builder" ]
 then
