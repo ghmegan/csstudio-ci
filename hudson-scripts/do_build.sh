@@ -4,7 +4,7 @@ BUILD_ITEM=$1
 #BASE_OPTS="-e -X -s $MSET"
 BASE_OPTS="-s $MSET"
 
-echo "Doing build for ${BUILD_ITEM}"
+echo "Doing build for ${BUILD_ITEM} in ${WORKSPACE}"
 
 if [ ! -d "$CSS_CI_DIR" ]; then
     echo "CSS_CI_DIR does not exist: $CSS_CI_DIR"
