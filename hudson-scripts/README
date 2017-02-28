@@ -1,0 +1,57 @@
+These scripts are assumed to be used in the Hudson job "Execute Shell" build steps
+
+It is assumed this repo will be cloned in an initial build step, then the scripts are used.
+
+So, there will be a chain of jobs, where the first job has a build script like:
+
+```
+cd $CSS_CI_DIR
+git clone https://github.com/ghmegan/csstudio-ci.git || echo "csstudio-ci exists... updating"
+cd csstudio-ci
+git pull
+hudson-scripts/setup_hudson.sh
+```
+Where CSS_CI_DIR is set in the Hudson setup and is a writable directory for the user running Hudson.
+
+
+
+Subsequent jobs will be setup with a Git repo in the Hudson Git plugin and build shell script.
+The argument to the build script must be exactly as appears here. It will be used
+to create a soft link to the Hudson workspace that matches the directory name in
+css_repo/compositeArtifacts.xml
+
+Git : https://github.com/ControlSystemStudio/diirt.git
+Script:
+```
+$CSS_CI_DIR/hudson-scripts/do_build.sh diirt
+```
+
+Git: https://github.com/ControlSystemStudio/maven-osgi-bundles.git
+Script:
+```
+$CSS_CI_DIR/hudson-scripts/do_build.sh maven-osgi-bundles
+```
+
+Git: https://github.com/ControlSystemStudio/cs-studio-thirdparty.git
+Script:
+```
+$CSS_CI_DIR/hudson-scripts/do_build.sh cs-studio-thirdparty
+```
+
+Git: https://github.com/ControlSystemStudio/cs-studio.git
+Script:
+```
+$CSS_CI_DIR/hudson-scripts/do_build.sh cs-studio
+```
+
+Git: https://github.com/kasemir/org.csstudio.display.builder
+Script:
+```
+$CSS_CI_DIR/hudson-scripts/do_build.sh org.csstudio.display.builder
+```
+
+Git: https://github.com/ControlSystemStudio/org.csstudio.sns.git
+Script:
+```
+$CSS_CI_DIR/hudson-scripts/do_build.sh org.csstudio.sns
+```
