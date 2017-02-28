@@ -2,6 +2,13 @@
 
 BUILD_ITEM=$1
 
+if [ ! -d "$M2" ]; then
+    echo "Maven bin dir does not exist: $M2"
+    exit 1
+fi
+
+$PATH=$M2:$PATH
+
 echo "Doing build for ${BUILD_ITEM} in ${WORKSPACE}"
 
 if [ ! -d "$CSS_CI_DIR" ]; then
