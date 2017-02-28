@@ -3,7 +3,7 @@
 # JAVA_HOME is set and java is in the default path
 # Maven is installed and on the default path, M2 and M2_HOME are set
 
-export SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source ${SCRIPT_DIR}/env.sh
 
 set -x
@@ -26,13 +26,13 @@ function build_in {
     fi
 }
 
-SUBFILE=${SCRIPT_DIR}/css_repo/compositeArtifacts.template.xml
-OUTFILE=${SCRIPT_DIR}/css_repo/compositeArtifacts.xml
+SUBFILE=${CSS_COMP_REPO}/compositeArtifacts.template.xml
+OUTFILE=${CSS_COMP_REPO}/compositeArtifacts.xml
 
 cat $SUBFILE | sed -e "s?CSS_BUILD_DIR?file:/${CSS_BUILD_DIR}?" > $OUTFILE
 
-SUBFILE=${SCRIPT_DIR}/css_repo/compositeContent.template.xml
-OUTFILE=${SCRIPT_DIR}/css_repo/compositeContent.xml
+SUBFILE=${CSS_COMP_REPO}/compositeContent.template.xml
+OUTFILE=${CSS_COMP_REPO}/compositeContent.xml
 
 cat $SUBFILE | sed -e "s?CSS_BUILD_DIR?file:/${CSS_BUILD_DIR}?" > $OUTFILE
 
@@ -40,7 +40,7 @@ cd $CSS_BUILD_DIR
 
 #rm -rf *.log
 
-export MAVEN_OPTS="-Xmx2048m"
+export MAVEN_OPTS="-Xmx2048m -XX:MaxPermSize=2024m -XX:-UseGCOverheadLimit"
 #BASE_OPTS="-e -X -s $MSET"
 BASE_OPTS="-s $MSET"
 OPTS="${BASE_OPTS} clean verify"
@@ -55,7 +55,7 @@ OPTS="${BASE_OPTS} clean verify"
 
 #build_in cs-studio/applications 4 applications
 
-CSS_REPO=file:${SCRIPT_DIR}/css_repo
+CSS_REPO=file:${CSS_COMP_REPO}
 OPTS="${BASE_OPTS} -Dcss-repo=$CSS_REPO clean verify"
 #build_in org.csstudio.display.builder 5 display_builder
 

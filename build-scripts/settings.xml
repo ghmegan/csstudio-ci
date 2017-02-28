@@ -57,7 +57,7 @@
 
       <properties>
         <!-- Path to your composite repo -->
-        <csstudio.composite.repo>${env.SCRIPT_DIR}/css_repo</csstudio.composite.repo>
+        <csstudio.composite.repo>${env.CSS_COMP_REPO}</csstudio.composite.repo>
 
         <eclipse-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/mars-releases</eclipse-site>
         <eclipse-update-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/eclipse-updates-4.5</eclipse-update-site>
