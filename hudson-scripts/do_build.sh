@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 BUILD_ITEM=$1
 #BASE_OPTS="-e -X -s $MSET"
@@ -41,5 +41,7 @@ then
 else
     echo "mvn $OPTS"
 fi
+
+rm -f ${CSS_WS_LINKS}/${BUILD_ITEM}
 
 ln -s $WORKSPACE ${CSS_WS_LINKS}/${BUILD_ITEM}
