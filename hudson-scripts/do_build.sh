@@ -7,7 +7,7 @@ if [ ! -d "$M2" ]; then
     exit 1
 fi
 
-$PATH=$M2:$PATH
+PATH=$M2:$PATH
 
 echo "Doing build for ${BUILD_ITEM} in ${WORKSPACE}"
 
