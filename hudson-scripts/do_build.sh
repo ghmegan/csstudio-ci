@@ -35,12 +35,12 @@ fi
 if [ "$BUILD_ITEM" == "cs-studio" ]
 then
     cd core
-    echo "mvn $OPTS"
+    mvn $OPTS
     cd ../applications
-    echo "mvn $OPTS"
+    mvn $OPTS
     cd ..
 else
-    echo "mvn $OPTS"
+    mvn $OPTS
 fi
 
 rm -f ${CSS_WS_LINKS}/${BUILD_ITEM}
