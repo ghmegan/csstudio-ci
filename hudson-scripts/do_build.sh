@@ -26,7 +26,7 @@ fi
 
 export CSS_M2_LOCAL=${CSS_CI_DIR}/dot.m2/repository
 #BASE_OPTS="-e -X -s $MSET"
-BASE_OPTS="-s $MSET"
+BASE_OPTS="-s $MSET --batch-mode"
 
 if [ "$BUILD_ITEM" == "org.csstudio.display.builder" ]
 then
