@@ -49,7 +49,7 @@ OPTS="${BASE_OPTS} clean verify"
 
 #build_in maven-osgi-bundles 1
 
-#build_in cs-studio-thirdparty 2
+build_in cs-studio-thirdparty 2
 
 #build_in cs-studio/core 3 core
 
@@ -60,4 +60,4 @@ OPTS="${BASE_OPTS} -Dcss-repo=$CSS_REPO clean verify"
 #build_in org.csstudio.display.builder 5 display_builder
 
 OPTS="${BASE_OPTS} clean verify"
-build_in org.csstudio.sns 6 sns
+#build_in org.csstudio.sns 6 sns

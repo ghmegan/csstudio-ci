@@ -17,6 +17,8 @@
     </mirror>
   </mirrors>
 
+  <localRepository>${env.CSS_M2_LOCAL}</localRepository>
+
   <profiles>
     <profile>
       <id>my-css-settings</id>

@@ -18,6 +18,8 @@ if [ ! -d "$CSS_BUILD_DIR" ]; then
     exit 1
 fi
 
+export CSS_M2_LOCAL=${CSS_BUILD_DIR}/dot.m2/repository
+
 echo "Building in ${CSS_BUILD_DIR}"
 
 if [ ! -r $MSET ]
