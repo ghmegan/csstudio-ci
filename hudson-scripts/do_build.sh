@@ -52,3 +52,9 @@ else
     mvn $OPTS || exit 1
 fi
 
+if [ "$BUILD_ITEM" == "archive-influxdb" ]
+then
+    cd archive.influxdb-repository
+    mvn $OPTS p2:site
+    cd ..
+fi
