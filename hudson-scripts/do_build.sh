@@ -48,13 +48,14 @@ then
     cd ../applications
     mvn $OPTS || exit 1
     cd ..
+elif [ "$BUILD_ITEM" == "archive-influxdb" ]
+then
+    mvn $OPTS install || exit 1
+    cd archive.influxdb-repository
+    mvn $OPTS p2:site || exit 1
+    cd ..
 else
     mvn $OPTS || exit 1
 fi
 
-if [ "$BUILD_ITEM" == "archive-influxdb" ]
-then
-    cd archive.influxdb-repository
-    mvn $OPTS p2:site
-    cd ..
-fi
+
