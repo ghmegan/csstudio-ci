@@ -18,6 +18,17 @@ if [ ! -d "$CSS_BUILD_DIR" ]; then
     exit 1
 fi
 
+SUBFILE=${CSS_COMP_REPO}/compositeArtifacts.template.xml
+OUTFILE=${CSS_COMP_REPO}/compositeArtifacts.xml
+
+cat $SUBFILE | sed -e "s?CSS_BUILD_DIR?file:/${CSS_BUILD_DIR}?" > $OUTFILE
+
+SUBFILE=${CSS_COMP_REPO}/compositeContent.template.xml
+OUTFILE=${CSS_COMP_REPO}/compositeContent.xml
+
+cat $SUBFILE | sed -e "s?CSS_BUILD_DIR?file:/${CSS_BUILD_DIR}?" > $OUTFILE
+
+
 export CSS_M2_LOCAL=${CSS_BUILD_DIR}/dot.m2/repository
 
 echo "Building in ${CSS_BUILD_DIR}"

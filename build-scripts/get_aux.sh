@@ -1,14 +1,11 @@
+#!/bin/bash
+
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source ${SCRIPT_DIR}/env.sh
 
 GH=https://github.com/
 
-REPOS="ControlSystemStudio/diirt \
-ControlSystemStudio/maven-osgi-bundles \
-ControlSystemStudio/cs-studio-thirdparty \
-ControlSystemStudio/cs-studio \
-kasemir/org.csstudio.display.builder \
-ControlSystemStudio/org.csstudio.sns"
+REPOS="ghmegan/archive-influxdb"
 
 if [ "$1" == "clean" ]
 then

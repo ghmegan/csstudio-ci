@@ -26,16 +26,6 @@ function build_in {
     fi
 }
 
-SUBFILE=${CSS_COMP_REPO}/compositeArtifacts.template.xml
-OUTFILE=${CSS_COMP_REPO}/compositeArtifacts.xml
-
-cat $SUBFILE | sed -e "s?CSS_BUILD_DIR?file:/${CSS_BUILD_DIR}?" > $OUTFILE
-
-SUBFILE=${CSS_COMP_REPO}/compositeContent.template.xml
-OUTFILE=${CSS_COMP_REPO}/compositeContent.xml
-
-cat $SUBFILE | sed -e "s?CSS_BUILD_DIR?file:/${CSS_BUILD_DIR}?" > $OUTFILE
-
 cd $CSS_BUILD_DIR
 
 #rm -rf *.log
@@ -45,19 +35,21 @@ export MAVEN_OPTS="-Xmx2048m -XX:MaxPermSize=2024m -XX:-UseGCOverheadLimit"
 BASE_OPTS="-s $MSET"
 OPTS="${BASE_OPTS} clean verify"
 
-#build_in diirt 0
+build_in diirt 0
 
-#build_in maven-osgi-bundles 1
+build_in maven-osgi-bundles 1
 
 build_in cs-studio-thirdparty 2
 
-#build_in cs-studio/core 3 core
+build_in cs-studio/core 3 core
 
-#build_in cs-studio/applications 4 applications
+build_in cs-studio/applications 4 applications
 
 CSS_REPO=file:${CSS_COMP_REPO}
 OPTS="${BASE_OPTS} -Dcss-repo=$CSS_REPO clean verify"
-#build_in org.csstudio.display.builder 5 display_builder
+build_in org.csstudio.display.builder 5 display_builder
 
 OPTS="${BASE_OPTS} clean verify"
-#build_in org.csstudio.sns 6 sns
+build_in org.csstudio.sns 6 sns
+
+ln -s ${CSS_BUILD_DIR}/org.csstudio.sns/repository/target/repository/plugins ${CSS_BUILD_DIR}/sns_plugins
