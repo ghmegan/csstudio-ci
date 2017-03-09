@@ -5,7 +5,8 @@ source ${SCRIPT_DIR}/env.sh
 
 GH=https://github.com/
 
-REPOS="ghmegan/archive-influxdb"
+REPOS="ghmegan/archive-influxdb \
+ghmegan/influxdb-java"
 
 if [ "$1" == "clean" ]
 then
@@ -21,9 +22,13 @@ do
     if [ -d $D ]
     then
 	echo "==== Updating $D ===="
-	(cd $D; ${DOCLEAN}; git pull; git branch)
+	(cd $D; ${DOCLEAN}; git pull)
     else
 	echo "==== Fetching $D ===="
 	git clone $GH/$i
+	if [ "$D" == "influxdb-java" ]
+	then
+	    (cd $D; git checkout plugin)
+	fi
     fi
 done

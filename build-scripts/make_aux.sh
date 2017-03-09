@@ -33,12 +33,25 @@ cd $CSS_BUILD_DIR
 export MAVEN_OPTS="-Xmx2048m -XX:-UseGCOverheadLimit"
 #BASE_OPTS="-e -X -s $MSET"
 BASE_OPTS="-s $MSET -U -up"
-OPTS="${BASE_OPTS} clean verify install"
 
+OPTS="${BASE_OPTS} clean install"
 build_in archive-influxdb a1
 
-cd archive-influxdb/archive.influxdb-repository
+OPTS="${BASE_OPTS} clean p2:site"
+build_in archive-influxdb/archive.influxdb-repository a1_1 archive-influxdb-p2
 
-mvn $OPTS p2:site
+OPTS="${BASE_OPTS} clean install -DskipTests=true"
+build_in influxdb-java a2
+
+OPTS="${BASE_OPTS} clean p2:site"
+build_in influxdb-java/repository a2_1 influxdb-java-p2
+
+ln -s \
+   ${CSS_BUILD_DIR}/archive-influxdb/archive.influxdb-repository/target/repository/plugins \
+   ${CSS_BUILD_DIR}/archive-influxdb_plugins
+
+ln -s \
+   ${CSS_BUILD_DIR}/influxdb-java/repository/target/repository/plugins \
+   ${CSS_BUILD_DIR}/influxdb-java_plugins
 
 

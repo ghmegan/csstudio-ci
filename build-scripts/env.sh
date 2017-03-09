@@ -1,6 +1,7 @@
 ENVSH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 export CSS_COMP_REPO="$ENVSH_DIR/css_repo"
+export CSS_AUX_REPO="$ENVSH_DIR/aux_repo"
 MSET="${ENVSH_DIR}/settings.xml"
 
 export CSS_BUILD_DIR="$(cd ${ENVSH_DIR}/.. && pwd)/BUILD"
@@ -18,6 +19,7 @@ if [ ! -d "$CSS_BUILD_DIR" ]; then
     exit 1
 fi
 
+## Patch composite repos for main CSS p2
 SUBFILE=${CSS_COMP_REPO}/compositeArtifacts.template.xml
 OUTFILE=${CSS_COMP_REPO}/compositeArtifacts.xml
 
@@ -25,6 +27,18 @@ cat $SUBFILE | sed -e "s?CSS_BUILD_DIR?file:/${CSS_BUILD_DIR}?" > $OUTFILE
 
 SUBFILE=${CSS_COMP_REPO}/compositeContent.template.xml
 OUTFILE=${CSS_COMP_REPO}/compositeContent.xml
+
+cat $SUBFILE | sed -e "s?CSS_BUILD_DIR?file:/${CSS_BUILD_DIR}?" > $OUTFILE
+
+
+## patch composite repos for aux components
+SUBFILE=${CSS_AUX_REPO}/compositeArtifacts.template.xml
+OUTFILE=${CSS_AUX_REPO}/compositeArtifacts.xml
+
+cat $SUBFILE | sed -e "s?CSS_BUILD_DIR?file:/${CSS_BUILD_DIR}?" > $OUTFILE
+
+SUBFILE=${CSS_AUX_REPO}/compositeContent.template.xml
+OUTFILE=${CSS_AUX_REPO}/compositeContent.xml
 
 cat $SUBFILE | sed -e "s?CSS_BUILD_DIR?file:/${CSS_BUILD_DIR}?" > $OUTFILE
 
