@@ -1,5 +1,4 @@
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source ${SCRIPT_DIR}/env.sh
+#!/bin/bash
 
 build_path=file:/${CSS_BUILD_DIR}
 

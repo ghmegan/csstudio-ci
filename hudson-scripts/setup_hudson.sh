@@ -5,28 +5,23 @@ if [ ! -d "$CSS_CI_DIR" ]; then
     exit 1
 fi
 
-CSS_CI_REPO="${CSS_CI_DIR}/csstudio-ci/build-scripts/css_repo"
+CSS_MAKE_REPO="${CSS_CI_DIR}/csstudio-ci/build-scripts/make_comp_repo.sh"
 
-if [ ! -d "$CSS_CI_REPO" ]; then
-    echo "CSS_CI_REPO does not exist: $CSS_CI_REPO"
+if [ ! -f "$CSS_MAKE_REPO" ]; then
+    echo "CSS_MAKE_REPO does not exist: $CSS_MAKE_REPO"
     exit 1
 fi
 
-CSS_HUDSON_REPO=${CSS_CI_DIR}/css_repo
-CSS_WS_LINKS=${CSS_CI_DIR}/css_ws_links
 
-mkdir -p ${CSS_HUDSON_REPO}
-rm -rf ${CSS_HUDSON_REPO}/*
+CSS_WS_LINKS=${CSS_CI_DIR}/css_ws_links
 
 mkdir -p ${CSS_WS_LINKS}
 rm -rf ${CSS_WS_LINKS}/*
 
-SUBFILE=${CSS_CI_REPO}/compositeArtifacts.template.xml
-OUTFILE=${CSS_HUDSON_REPO}/compositeArtifacts.xml
+# Inputs to make_comp_repo
+export CSS_COMP_REPO=${CSS_CI_DIR}/css_repo
+export CSS_BUILD_DIR=${CSS_WS_LINKS}
 
-cat $SUBFILE | sed -e "s?CSS_BUILD_DIR?file:/${CSS_WS_LINKS}?" > $OUTFILE
+# generate xml
+${CSS_MAKE_REPO} --with-aux
 
-SUBFILE=${CSS_CI_REPO}/compositeContent.template.xml
-OUTFILE=${CSS_HUDSON_REPO}/compositeContent.xml
-
-cat $SUBFILE | sed -e "s?CSS_BUILD_DIR?file:/${CSS_WS_LINKS}?" > $OUTFILE

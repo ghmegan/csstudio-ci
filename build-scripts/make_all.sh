@@ -6,6 +6,8 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source ${SCRIPT_DIR}/env.sh
 
+${SCRIPT_DIR}/make_comp_repo.sh --with-aux
+
 set -x
 
 function build_in {

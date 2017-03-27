@@ -17,14 +17,23 @@ fi
 export CSS_COMP_REPO=${CSS_CI_DIR}/css_repo
 CSS_WS_LINKS=${CSS_CI_DIR}/css_ws_links
 
-MSET="${CSS_CI_DIR}/csstudio-ci/build-scripts/settings.xml"
+
+if [ "$BUILD_ITEM" == "influxdb-java" ]
+then
+    MSET="${WORKSPACE}/repository/settings.xml"
+    export CSS_M2_LOCAL=${WORKSPACE}/dot.m2/repository
+else
+    MSET="${CSS_CI_DIR}/csstudio-ci/build-scripts/settings.xml"
+    export CSS_M2_LOCAL=${CSS_CI_DIR}/dot.m2/repository
+fi
+
 if [ ! -r $MSET ]
 then
-    echo "Missing maven settings"
+    echo "Missing maven settings: ${MSET}"
     exit 1
 fi
 
-export CSS_M2_LOCAL=${CSS_CI_DIR}/dot.m2/repository
+
 #BASE_OPTS="-e -X -s $MSET"
 BASE_OPTS="-s $MSET --batch-mode"
 
@@ -52,6 +61,12 @@ elif [ "$BUILD_ITEM" == "archive-influxdb" ]
 then
     mvn $OPTS install || exit 1
     cd archive.influxdb-repository
+    mvn $OPTS p2:site || exit 1
+    cd ..
+elif [ "$BUILD_ITEM" == "influxdb-java" ]
+then
+    mvn $OPTS install -DskipTests=true || exit 1
+    cd repository
     mvn $OPTS p2:site || exit 1
     cd ..
 else
