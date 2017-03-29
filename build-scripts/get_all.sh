@@ -3,18 +3,32 @@ source ${SCRIPT_DIR}/env.sh
 
 GH=https://github.com/
 
-REPOS="ControlSystemStudio/diirt \
+MAIN_REPOS="ControlSystemStudio/diirt \
 ControlSystemStudio/maven-osgi-bundles \
 ControlSystemStudio/cs-studio-thirdparty \
 ControlSystemStudio/cs-studio \
 kasemir/org.csstudio.display.builder \
 ControlSystemStudio/org.csstudio.sns"
 
-if [ "$1" == "clean" ]
-then
-    echo "Cleaning git repos"
-    DOCLEAN='git clean -Xdf'
-fi
+INFLUX_REPOS="ghmegan/archive-influxdb \
+ghmegan/influxdb-java"
+
+REPOS=${MAIN_REPOS}
+
+SNS_INFLUXDB="N"
+
+for arg in "$@"
+do
+    if [ "$arg" == "--with-influxdb" ]
+    then
+	REPOS="${REPOS} ${INFLUX_REPOS}"
+	SNS_INFLUXDB="Y"
+    elif [ "$arg" == "--git-clean" ]
+    then
+	echo "Cleaning git repos"
+	DOCLEAN='git clean -Xdf'
+    fi
+done
 
 cd $CSS_BUILD_DIR
 
@@ -29,4 +43,14 @@ do
 	echo "==== Fetching $D ===="
 	git clone $GH/$i
     fi
+
+    if [ "$D" == "influxdb-java" ]
+    then
+	(cd $D; git checkout plugin)
+    fi	
 done
+
+if [ "${SNS_INFLUXDB}" == "Y" ]
+then
+    (cd org.csstudio.sns; git checkout influxdb-product)
+fi

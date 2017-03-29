@@ -23,5 +23,5 @@ export CSS_COMP_REPO=${CSS_CI_DIR}/css_repo
 export CSS_BUILD_DIR=${CSS_WS_LINKS}
 
 # generate xml
-${CSS_MAKE_REPO} --with-aux
+${CSS_MAKE_REPO} --with-influxdb
 
