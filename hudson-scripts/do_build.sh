@@ -41,6 +41,9 @@ if [ "$BUILD_ITEM" == "org.csstudio.display.builder" ]
 then
     CSS_REPO=file:${CSS_COMP_REPO}
     OPTS="${BASE_OPTS} -Dcss-repo=$CSS_REPO -Dmaven.test.skip=false -DskipTests=false clean verify"
+elif [ "$BUILD_ITEM" == "archive-influxdb" ]
+then
+    OPTS="${BASE_OPTS} -U -up clean verify"
 else
     OPTS="${BASE_OPTS} clean verify"
 fi
