@@ -1,17 +1,10 @@
 #!/bin/bash -x
 
 PREFIX=$1
-SOURCE=$2
 
 if [ "x" == "x$PREFIX" ]
 then
     echo "Must specify destination prefix as first argument"
-    exit 1
-fi
-
-if [ ! -e "$SOURCE" ]
-then
-    echo "Must specify source file or directory as second argument"
     exit 1
 fi
 
@@ -20,6 +13,20 @@ THIS_SNAP=${SNAPSHOT}_`date +'%Y_%m_%d'`
 
 rm -rf $THIS_SNAP
 mkdir -p $THIS_SNAP
-cp -r $SOURCE $THIS_SNAP/.
+
+shift
+while (($#)); do
+  SOURCE=$1
+
+  if [ ! -e "$SOURCE" ]
+  then
+    echo "Invalid source file or dir: ${SOURCE}"
+    exit 1
+  fi
+
+  cp -r $SOURCE $THIS_SNAP/.
+  shift
+done
+
 rm -f $SNAPSHOT
 ln -s $THIS_SNAP $SNAPSHOT
