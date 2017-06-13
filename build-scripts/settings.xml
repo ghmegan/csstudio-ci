@@ -28,12 +28,12 @@
 	<!-- This setting overrides the repository settings in css-thirdparty -->
 	<repository>
 	  <id>eclipse</id>
-	  <url>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/mars-releases/</url>
+	  <url>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/neon-releases/</url>
 	  <layout>p2</layout>
 	</repository>
 	<repository>
 	  <id>eclipse-updates</id>
-	  <url>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/eclipse-updates-4.5/</url>
+	  <url>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/eclipse-updates-4.6/</url>
 	  <layout>p2</layout>
 	</repository>
 
@@ -61,8 +61,8 @@
         <!-- Path to your composite repo -->
         <csstudio.composite.repo>${env.CSS_COMP_REPO}</csstudio.composite.repo>
 
-        <eclipse-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/mars-releases</eclipse-site>
-        <eclipse-update-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/eclipse-updates-4.5</eclipse-update-site>
+        <eclipse-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/neon-releases</eclipse-site>
+        <eclipse-update-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/eclipse-updates-4.6</eclipse-update-site>
         <rap-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/rt-rap-3.0</rap-site>
         <rap-gef-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/rap-gef-nightly</rap-gef-site>
         <swtbot-site>http://ctrl-ci.sns.gov:8081/nexus/content/repositories/swtbot-snapshots</swtbot-site>

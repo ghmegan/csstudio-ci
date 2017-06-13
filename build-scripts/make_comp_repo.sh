@@ -9,19 +9,15 @@ main_p2_dirs="${build_path}/diirt/p2/target/repository \
     ${build_path}/cs-studio/applications/p2repo \
     ${build_path}/org.csstudio.display.builder/repository/target/repository"
 
-influxdb_p2_dirs="${build_path}/archive-influxdb/repository/target/repository \
-    ${build_path}/influxdb-java/repository/target/repository"
-
-
 all_p2_dirs=${main_p2_dirs}
 
-for arg in "$@"
-do
-    if [ "$arg" == "--with-influxdb" ]
-    then
-	all_p2_dirs="${all_p2_dirs} ${influxdb_p2_dirs}"
-    fi
-done
+#for arg in "$@"
+#do
+#    if [ "$arg" == "--with-influxdb" ]
+#    then
+#	all_p2_dirs="${all_p2_dirs} ${influxdb_p2_dirs}"
+#    fi
+#done
 
 all_dir_arr=( $all_p2_dirs )
 num_dirs=${#all_dir_arr[@]}

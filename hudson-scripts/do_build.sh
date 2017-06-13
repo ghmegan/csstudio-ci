@@ -17,15 +17,8 @@ fi
 export CSS_COMP_REPO=${CSS_CI_DIR}/css_repo
 CSS_WS_LINKS=${CSS_CI_DIR}/css_ws_links
 
-
-if [ "$BUILD_ITEM" == "influxdb-java" ]
-then
-    MSET="${WORKSPACE}/repository/settings.xml"
-    export CSS_M2_LOCAL=${WORKSPACE}/dot.m2/repository
-else
-    MSET="${CSS_CI_DIR}/csstudio-ci/build-scripts/settings.xml"
-    export CSS_M2_LOCAL=${CSS_CI_DIR}/dot.m2/repository
-fi
+MSET="${CSS_CI_DIR}/csstudio-ci/build-scripts/settings.xml"
+export CSS_M2_LOCAL=${CSS_CI_DIR}/dot.m2/repository
 
 if [ ! -r $MSET ]
 then
@@ -41,9 +34,6 @@ if [ "$BUILD_ITEM" == "org.csstudio.display.builder" ]
 then
     CSS_REPO=file:${CSS_COMP_REPO}
     OPTS="${BASE_OPTS} -Dcss-repo=$CSS_REPO -Dmaven.test.skip=false -DskipTests=false clean verify"
-elif [ "$BUILD_ITEM" == "archive-influxdb" ]
-then
-    OPTS="${BASE_OPTS} -U -up clean verify"
 else
     OPTS="${BASE_OPTS} clean verify"
 fi
@@ -59,12 +49,6 @@ then
     mvn $OPTS || exit 1
     cd ../applications
     mvn $OPTS || exit 1
-    cd ..
-elif [ "$BUILD_ITEM" == "influxdb-java" ]
-then
-    mvn $OPTS install -DskipTests=true || exit 1
-    cd repository
-    mvn $OPTS p2:site || exit 1
     cd ..
 else
     mvn $OPTS || exit 1

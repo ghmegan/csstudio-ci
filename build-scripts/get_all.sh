@@ -10,20 +10,11 @@ ControlSystemStudio/cs-studio \
 kasemir/org.csstudio.display.builder \
 ControlSystemStudio/org.csstudio.sns"
 
-INFLUX_REPOS="ghmegan/archive-influxdb \
-ghmegan/influxdb-java"
-
-REPOS=${MAIN_REPOS}
-
-SNS_INFLUXDB="N"
+REPOS="${MAIN_REPOS} ${INFLUX_REPOS}"
 
 for arg in "$@"
 do
-    if [ "$arg" == "--with-influxdb" ]
-    then
-	REPOS="${REPOS} ${INFLUX_REPOS}"
-	SNS_INFLUXDB="Y"
-    elif [ "$arg" == "--git-clean" ]
+    if [ "$arg" == "--git-clean" ]
     then
 	echo "Cleaning git repos"
 	DOCLEAN='git clean -Xdf'
@@ -46,11 +37,9 @@ do
 
     if [ "$D" == "influxdb-java" ]
     then
-	(cd $D; git checkout plugin)
+	(cd $D; git checkout plugin-p2)
     fi	
 done
 
-if [ "${SNS_INFLUXDB}" == "Y" ]
-then
-    (cd org.csstudio.sns; git checkout influxdb-product)
-fi
+(cd org.csstudio.sns; git checkout influxdb-product)
+(cd cs-studio; git checkout influxdb-archive-app)
