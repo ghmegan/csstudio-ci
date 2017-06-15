@@ -10,6 +10,8 @@ ControlSystemStudio/cs-studio \
 kasemir/org.csstudio.display.builder \
 ControlSystemStudio/org.csstudio.sns"
 
+INFLUX_REPOS="ControlSystemStudio/influxdb-java"
+
 REPOS="${MAIN_REPOS} ${INFLUX_REPOS}"
 
 for arg in "$@"

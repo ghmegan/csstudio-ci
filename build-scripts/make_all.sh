@@ -44,6 +44,12 @@ build_in maven-osgi-bundles 1
 ######## Build CS Studio third party
 build_in cs-studio-thirdparty 2
 
+######## Build influxdb plugin
+OPTS="${BASE_OPTS} clean install -DskipTests=true"
+build_in influxdb-java a1
+OPTS="${BASE_OPTS} clean p2:site"
+build_in influxdb-java/repository a1_1 influxdb-java-p2
+
 ######## Build CS Studio Core and Applications
 OPTS="${BASE_OPTS} clean verify"
 build_in cs-studio/core 3 core

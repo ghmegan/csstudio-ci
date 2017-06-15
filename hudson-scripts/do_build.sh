@@ -50,6 +50,12 @@ then
     cd ../applications
     mvn $OPTS || exit 1
     cd ..
+elif [ "$BUILD_ITEM" == "influxdb-java" ]
+then
+    mvn $OPTS install -DskipTests=true || exit 1
+    cd repository
+    mvn $OPTS p2:site || exit 1
+    cd ..
 else
     mvn $OPTS || exit 1
 fi
