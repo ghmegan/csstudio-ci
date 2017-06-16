@@ -1,7 +1,7 @@
 ### Assumes
 # Oracle java is installed
 # JAVA_HOME is set and java is in the default path
-# Maven is installed and on the default path, M2 and M2_HOME are set
+# M2_HOME is set
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source ${SCRIPT_DIR}/env.sh
@@ -19,7 +19,7 @@ function build_in {
 
     rm -f $fname
     
-    (cd "$1"; time mvn $OPTS) | tee $fname.log
+    (cd "$1"; time ${M2_EXE} $OPTS) | tee $fname.log
     if [ ${PIPESTATUS[0]} -ne 0 ]; then
 	echo "$1 build failed"
 	exit

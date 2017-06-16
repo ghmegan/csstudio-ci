@@ -3,7 +3,7 @@ ENVSH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export CSS_COMP_REPO="$ENVSH_DIR/css_repo"
 MSET="${ENVSH_DIR}/settings.xml"
 
-export CSS_BUILD_DIR="$(cd ${ENVSH_DIR}/.. && pwd)/BUILD"
+export CSS_BUILD_DIR="$(cd ${ENVSH_DIR}/.. && pwd)/BUILD-OLD"
 
 if [ -z ${CSS_BUILD_DIR+x} ]
 then 
@@ -34,8 +34,16 @@ then
     exit 1
 fi
 
-if [ ! -x "$M2_HOME/bin/mvn" ]
+if [ ! -x "$M2_HOME" ]
 then
     echo "Missing M2_HOME"
+    exit 1
+fi
+
+export M2_EXE=${M2_HOME}/bin/mvn
+
+if [ ! -x "$M2_EXE" ]
+then
+    echo "Missing ${M2_HOME}/bin/mvn"
     exit 1
 fi
