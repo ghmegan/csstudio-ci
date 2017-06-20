@@ -15,7 +15,7 @@ all_p2_dirs=${main_p2_dirs}
 
 for arg in "$@"
 do
-    if [ "$arg" == "--with-influxdb" ]
+    if [ "$arg" == "--with-opt-influxdb" ]
     then
 	all_p2_dirs="${all_p2_dirs} ${influxdb_p2_dirs}"
     fi

@@ -3,7 +3,7 @@ ENVSH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 export CSS_COMP_REPO="$ENVSH_DIR/css_repo"
 MSET="${ENVSH_DIR}/settings.xml"
 
-export CSS_BUILD_DIR="$(cd ${ENVSH_DIR}/.. && pwd)/BUILD-OLD"
+export CSS_BUILD_DIR="$(cd ${ENVSH_DIR}/.. && pwd)/BUILD"
 
 if [ -z ${CSS_BUILD_DIR+x} ]
 then 

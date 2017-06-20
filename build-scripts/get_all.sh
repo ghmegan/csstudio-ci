@@ -12,7 +12,7 @@ ControlSystemStudio/org.csstudio.sns"
 
 INFLUX_REPOS="ControlSystemStudio/influxdb-java"
 
-REPOS="${MAIN_REPOS} ${INFLUX_REPOS}"
+REPOS="${MAIN_REPOS}"
 
 for arg in "$@"
 do
@@ -20,6 +20,9 @@ do
     then
 	echo "Cleaning git repos"
 	DOCLEAN='git clean -Xdf'
+    elif [ "$arg" == "--with-opt-influxdb" ]
+    then
+	REPOS="${MAIN_REPOS} ${INFLUX_REPOS}"
     fi
 done
 
@@ -45,3 +48,4 @@ done
 
 (cd org.csstudio.sns; git checkout influxdb-product)
 (cd cs-studio; git checkout influxdb-archive-app)
+(cd maven-osgi-bundles; git checkout influxdb-fix)

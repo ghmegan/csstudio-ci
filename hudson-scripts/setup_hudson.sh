@@ -12,6 +12,7 @@ if [ ! -f "$CSS_MAKE_REPO" ]; then
     exit 1
 fi
 
+rm -rf ${CSS_CI_DIR}/dot.m2
 
 CSS_WS_LINKS=${CSS_CI_DIR}/css_ws_links
 
@@ -23,5 +24,5 @@ export CSS_COMP_REPO=${CSS_CI_DIR}/css_repo
 export CSS_BUILD_DIR=${CSS_WS_LINKS}
 
 # generate xml
-${CSS_MAKE_REPO} --with-influxdb
+${CSS_MAKE_REPO} $@
 

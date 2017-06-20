@@ -6,7 +6,17 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source ${SCRIPT_DIR}/env.sh
 
-${SCRIPT_DIR}/make_comp_repo.sh --with-influxdb
+${SCRIPT_DIR}/make_comp_repo.sh $@
+
+OPT_INFLUXDB="N"
+
+for arg in "$@"
+do
+    if [ "$arg" == "--with-opt-influxdb" ]
+    then
+	OPT_INFLUXDB="Y"
+    fi
+done
 
 function build_in {
     result=1
@@ -45,10 +55,13 @@ build_in maven-osgi-bundles 1
 build_in cs-studio-thirdparty 2
 
 ######## Build influxdb plugin
-OPTS="${BASE_OPTS} clean install -DskipTests=true"
-build_in influxdb-java a1
-OPTS="${BASE_OPTS} clean p2:site"
-build_in influxdb-java/repository a1_1 influxdb-java-p2
+if [ "$OPT_INFLUXDB" == "Y" ]
+then
+    OPTS="${BASE_OPTS} clean install -DskipTests=true"
+    build_in influxdb-java a1
+    OPTS="${BASE_OPTS} clean p2:site"
+    build_in influxdb-java/repository a1_1 influxdb-java-p2
+fi
 
 ######## Build CS Studio Core and Applications
 OPTS="${BASE_OPTS} clean verify"
