@@ -1,0 +1,2 @@
+MAILTO=elc@ornl.gov
+0 0 * * * /opt/hudson-css-build/csstudio-ci/hudson-scripts/purge_repo_snapshot.sh
